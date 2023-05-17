@@ -129,4 +129,91 @@ for i in range(len(list)):
 
 print("환승역 =>", list_t)
 
-print
+print("[", start,"] 부터 [",end,"] 까지의 최단경로는 ->", res_str, "<- 입니다.")
+
+select = input("C = 중간지점 확인, R = 재시작, X = 종료 ->")
+while (select != 'X' and select != 'x'):
+	if select == 'r' or select == 'R':
+		start = input("출발역을 입력하시오. -> ")
+		end = input("도착역을 입력하시오. -> ")
+		
+		while(start not in stations) or (end not in stations):
+			print("잘못된 값이 입력되었습니다. 다시 입력해 주세요.")
+			start = input("출발역을 입력하시오. -> ")
+			end = input("도착역을 입력하시오. -> ")
+		list_t = []
+		bfs(stations, stations[start])
+		back_track(stations[end])
+		
+		for i in range(len(list)):
+			if list[i] in res_str and "창동" in list[i]:
+				if "창동" not in list_t:
+					list_t.append("창동")
+			if list[i] in res_str and "신설동" in list[i]:
+				if "신설동" not in list_t:
+					list_t.append("신설동")
+			if list[i] in res_str and "동대문" in list[i]:
+				if "동대문" not in list_t:
+					list_t.append("동대문")
+			if list[i] in res_str and "창동" in list[i]:
+				if "창동" not in list_t:
+					list_t.append("종로3가")
+			if list[i] in res_str and "창동" in list[i]:
+				if "종로3가" not in list_t:
+					list_t.append("종로3가")
+			if list[i] in res_str and "시청" in list[i]:
+				if "시청" not in list_t:
+					list_t.append("시청")
+			if list[i] in res_str and "서울역" in list[i]:
+				if "서울역" not in list_t:
+			l		ist_t.append("서울역")
+			if list[i] in res_str and "신길" in list[i]:
+				if "신길" not in list_t:
+					list_t.append("신길")
+			if list[i] in res_str and "신도림" in list[i]:
+				if "신도림" not in list_t:
+					list_t.append("신도림")
+			if list[i] in res_str and "금정" in list[i]:
+				if "금정" not in list_t:
+					list_t.append("금정")
+			if list[i] in res_str and "왕십리" in list[i]:
+				if "왕십리" not in list_t:
+					list_t.append("왕십리")
+			if list[i] in res_str and "동대문역사문화공원" in list[i]:
+				if "동대문역사문화공원" not in list_t:
+					list_t.append("동대문역사문화공원")
+			if list[i] in res_str and "을지로4가" in list[i]:
+				if "을지로4가" not in list_t:
+					list_t.append("을지로4가")
+			if list[i] in res_str and "충정로" in list[i]:
+				if "충정로" not in list_t:
+					list_t.append("충정로")
+			if list[i] in res_str and "영등포구청" in list[i]:
+				if "영등포구청" not in list_t:
+					list_t.append("영등포구청")
+			if list[i] in res_str and "까치산" in list[i]:
+				if "까치산" not in list_t:
+					list_t.append("까치산")
+			if list[i] in res_str and "사당" in list[i]:
+				if "사당" not in list_t:
+					list_t.append("사당")
+			if list[i] in res_str and "교대" in list[i]:
+				if "교대" not in list_t:
+					list_t.append("교대")
+			if list[i] in res_str and "을지로3가" in list[i]:
+				if "을지로3가" not in list_t:
+					list_t.append("을지로3가")
+			if list[i] in res_str and "충무로" in list[i]:
+				if "충무로" not in list_t:
+					list_t.append("충무로")
+			if list[i] in res_str and "오금" in list[i]:
+				if "오금" not in list_t:
+					list_t.append("오금")
+		print("환승역 =>", list_t)
+		print("[", start,"] 부터 [", end,"] 까지의 최단경로는 ->", res_str, "<- 입니다.")
+	elif select == 'c' or select == 'C':
+		print(start, "와", end, "사이의 중간지점은", res_str1)
+	else:
+		print("입력이 잘못됨")
+	select = input("C = 중간지점 확인, R = 재시작, X = 종료 -> ")
+print("프로그램 종료!")
