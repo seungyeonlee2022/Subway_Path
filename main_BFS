@@ -1,6 +1,8 @@
 from collections import deque
 from subway_graph import *
 
+#환승소요시간은 고려 안 한 코드
+
 def bfs(graph, start_node):
 	queue = deque()
 	
