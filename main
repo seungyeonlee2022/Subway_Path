@@ -1,0 +1,132 @@
+from collections import deque
+from subway_graph import *
+
+def bfs(graph, start_node):
+	queue = deque()
+	
+	for station_node in graph.values():
+		station_node.visited = False
+		station_node.predecessor = None
+	
+	start_node.visited = True
+	queue.append(start_node)
+	
+	while queue:
+		current_station = queue.popleft()
+		for neighbor in current_station.adjacent_stations:
+			if not neighbor.visited:
+				neighbor.visited = True
+				neighbor.predecessor = current_station
+				queue.append(neighbor)
+
+def back_track(destination_node):
+	global res_str
+	res_str = ""
+	temp = destination_node
+	
+	i=0
+	while temp is not None:
+		res_str = f"{temp.station_name} {res_str}"
+		temp = temp.predecessor
+		i = i + 1
+	print("약", i*2, "분 소요예정(총", i, "개 역 경유)")
+	
+	center = int(i/2)+1
+	global res_str1
+	res_str1 = ""
+	temp = destination_node
+	for c in range(center):
+		res_str1 = temp.station_name
+		temp = temp.predecessor
+	return res_str
+	
+global res_str
+global res_str1
+res_str1 = ''
+res_str = ''
+
+list = ["방학 창동 쌍문", "방학 창동 노원", "녹천 창동 쌍문", "녹천 창동 노원", "노원 창동 방학", "노원 창동 녹천", "쌍문 창동 방학", "쌍문 창동 녹천", "제기동 신설동 용두", "동묘앞 신설동 용두", "동묘앞 동대문 혜화", "동묘앞 동대문 동대문역사문화공원", "종로5가 동대문 혜화", "종로5가 동대문 동대문역사문화공원", "혜화 동대문 종로5가", "혜화 동대문 동묘앞", "동대문역사문화공원 동대문 종로5가", "동대문역사문화공워 동대문 동묘앞", "종로5가 종로3가 안국", "종로5가 종로3가 을지로3가", "종로5가 종로3가 광화문", "종로5가 종로3가 을지로4가", "종각 종로3가 안국", "종각 종로3가 을지로3가", "종각 종로3가 광화문", "종각 종로3가 을지로4가", "안국 종로3가 종각", "안국 종로3가 종로5가", "안국 종로3가 광화문", "안국 종로3가 을지로4가", "을지로3가 종로3가 종각", "을지로3가 종로3가 종로5가", "을지로3가 종로3가 광화문", "을지로3가 종로3가 을지로4가", "광화문 종로3가 종각", "광화문 종로3가 종로5가", "광화문 종로3가 안국", "광화문 종로3가 을지로3가", "을지로4가 종로3가 종각", "을지로4가 종로3가 종로5가", "을지로4가 종로3가 안국", "을지로4가 종로3가 을지로3가", "종각 시청 충정로", "종각 시청 을지로입구", "서울역 시청 충정로", "서울역 시청 을지로입구", "시청 서울역 회현", "시청 서울역 숙대입구", "남영 서울역 회현", "남영 서울역 숙대입구", "회현 서울역 시청", "회현 서울역 남영", "숙대입구 서울역 시청", "숙대입구 서울역 남영", "대방 신길 영등포시장", "대방 신길 여의도", "영등포 신길 영등포시장", "영등포 신길 여의도", "영등포시장 신길 영등포", "영등포시장 신길 대방", "여의도 신길 영등포", "여의도 신길 대방", "영등포 신도림 문래", "영등포 신도림 도림천", "구로 신도림 문래", "구로 신도림 도림천", "문래 신도림 구로", "문래 신도림 영등포", "도림천 신도림 구로", "도림천 신도림 영등포", "대림 신도림 구로", "대림 신도림 영등포", "명학 금정 산본", "명학 금정 범계", "군포 금정 산본", "군포 금정 범계", "범계 금정 명학", "범계 금정 군포", "산본 금정 명학", "산본 금정 군포", "상왕십리 왕십리 행당", "상왕십리 왕십리 마장", "한양대 왕십리 행당", "한양대 왕십리 마장", "행당 왕십리 상왕십리", "행당 왕십리 한양대", "마장 왕십리 상왕십리", "마장 왕십리 한양대", "신당 동대문역사문화공원 동대문", "신당 동대문역사문화공원 충무로", "을지로4가 동대문역사문화공원 동대문", "을지로4가 동대문역사문화공원 충무로", "신당 동대문역사문화공원 을지로4가", "신당 동대문역사문화공원 청구", "을지로4가 동대문역사문화공원 청구", "을지로4가 동대문역사문화공원 신당", "을지로4가 동대문역사문화공원 동대문", "을지로4가 동대문역사문화공원 충무로", "청구 동대문역사문화공원 을지로4가", "청구 동대문역사문화공원 신당", "청구 동대문역사문화공원 동대문", "청구 동대문역사문화공원 충무로", "을지로3가 을지로4가 종로3가", "을지로3가 을지로4가 동대문역사문화공원", "동대문역사문화공원 을지로4가 종로3가", "종로3가 을지로4가 을지로3가", "종로3가 을지로4가 동대문역사문화공원", "동대문역사문화공원 을지로4가 을지로3가", "아현 충정로 서대문", "아현 충정로 애오개", "시청 충정로 서대문", "시청 충정로 애오개", "서대문 충정로 아현", "서대문 충정로 시청", "애오개 충정로 아현", "애오개 충정로 시청", "당산 영등포구청 양평", "당산 영등포구청 영등포시장", "문래 영등포구청 양평", "문래 영등포구청 영등포시장", "양평 영등포구청 당산", "양평 영등포구청 문래", "영등포시장 영등포구청 당산", "영등포시장 영등포구청 문래", "신정네거리 까치산 화곡", "신정네거리 까치산 신정", "화곡 까치산 신정네거리", "신정 까치산 신정네거리", "낙성대 사당 총신대입구(이수)", "낙성대 사당 남태령", "방배 사당 총신대입구(이수)", "방배 사당 남태령", "총신대입구(이수) 사당 낙성대", "총신대입구(이수) 사당 방배", "남태령 사당 낙성대", "남태령 사당 방배", "서초 교대 고속터미널", "서초 교대 남부터미널", "강남 교대 고속터미널", "강남 교대 남부터미널", "고속터미널 교대 서초", "고속터미널 교대 강남", "남부터미널 교대 서초", "남부터미널 교대 강남", "을지로입구 을지로3가 종로3가", :을지로입구 을지로3가 충무로", "을지로4가 을지로3가 종로3가", "을지로4가 을지로3가 충무로", "종로3가 을지로3가 을지로입구", "종로3가 을지로3가 을지로4가", "충무로 을지로3가 을지로입구", "충무로 을지로3가 을지로4가", "을지로3가 충무로 동대문역사문화공원", "을지로3가 충무로 명동", "동대입구 충무로 동대문역사문화공원", "동대입구 충무로 명동", "동대문역사문화공원 충무로 을지로3가", "동대문역사문화공원 충무로 동대입구", "명동 충무로 을지로3가", "명동 충무로 동대입구", "경찰병원 오금 방이", "경찰병원 오금 개롱", "방이 오금 경찰병원", "개롱 오금 경찰병원"]
+list_t = []
+
+stations = create_station_graph("./1.txt")
+
+start = input("출발역을 입력하시오. -> ")
+end = input("도착역을 입력하시오. -> ")
+
+while (start not in stations) or (end not in stations):
+	print("잘못된 값이 입력되었습니다. 다시 입력해 주세요.")
+	start = input("출발역을 입력하시오. -> ")
+	end = input("도착역을 입력하시오. -> ")
+
+
+bfs(stations, stations[start])
+back_track(stations[end])
+
+for i in range(len(list)):
+	if list[i] in res_str and "창동" in list[i]:
+		if "창동" not in list_t:
+			list_t.append("창동")
+	if list[i] in res_str and "신설동" in list[i]:
+		if "신설동" not in list_t:
+			list_t.append("신설동")
+	if list[i] in res_str and "동대문" in list[i]:
+		if "동대문" not in list_t:
+			list_t.append("동대문")
+	if list[i] in res_str and "창동" in list[i]:
+		if "창동" not in list_t:
+			list_t.append("종로3가")
+	if list[i] in res_str and "창동" in list[i]:
+		if "종로3가" not in list_t:
+			list_t.append("종로3가")
+	if list[i] in res_str and "시청" in list[i]:
+		if "시청" not in list_t:
+			list_t.append("시청")
+	if list[i] in res_str and "서울역" in list[i]:
+		if "서울역" not in list_t:
+			list_t.append("서울역")
+	if list[i] in res_str and "신길" in list[i]:
+		if "신길" not in list_t:
+			list_t.append("신길")
+	if list[i] in res_str and "신도림" in list[i]:
+		if "신도림" not in list_t:
+			list_t.append("신도림")
+	if list[i] in res_str and "금정" in list[i]:
+		if "금정" not in list_t:
+			list_t.append("금정")
+	if list[i] in res_str and "왕십리" in list[i]:
+		if "왕십리" not in list_t:
+			list_t.append("왕십리")
+	if list[i] in res_str and "동대문역사문화공원" in list[i]:
+		if "동대문역사문화공원" not in list_t:
+			list_t.append("동대문역사문화공원")
+	if list[i] in res_str and "을지로4가" in list[i]:
+		if "을지로4가" not in list_t:
+			list_t.append("을지로4가")
+	if list[i] in res_str and "충정로" in list[i]:
+		if "충정로" not in list_t:
+			list_t.append("충정로")
+	if list[i] in res_str and "영등포구청" in list[i]:
+		if "영등포구청" not in list_t:
+			list_t.append("영등포구청")
+	if list[i] in res_str and "까치산" in list[i]:
+		if "까치산" not in list_t:
+			list_t.append("까치산")
+	if list[i] in res_str and "사당" in list[i]:
+		if "사당" not in list_t:
+			list_t.append("사당")
+	if list[i] in res_str and "교대" in list[i]:
+		if "교대" not in list_t:
+			list_t.append("교대")
+	if list[i] in res_str and "을지로3가" in list[i]:
+		if "을지로3가" not in list_t:
+			list_t.append("을지로3가")
+	if list[i] in res_str and "충무로" in list[i]:
+		if "충무로" not in list_t:
+			list_t.append("충무로")
+	if list[i] in res_str and "오금" in list[i]:
+		if "오금" not in list_t:
+			list_t.append("오금")
+
+print("환승역 =>", list_t)
+
+print
